@@ -26,11 +26,23 @@ initials = [
     [0.9, 1.0, 1.0]
 ]
 
-fig, ax = plt.subplots(figsize=(8,5))
-for idx, y0 in enumerate(initials):
-    sol = simulate(y0, t_eval, params)
-    ax.plot(sol.t, sol.y[0], label=f'init {idx+1}')   # plot x(t) for each
-ax.set_xlabel('time'); ax.set_ylabel('x(t)')
-ax.legend()
-ax.set_title('Lorenz: x(t) for different initial conditions')
-plt.show()
+def show_x_t():
+    fig, ax = plt.subplots(figsize=(8,5))
+    for idx, y0 in enumerate(initials):
+        sol = simulate(y0, t_eval, params)
+        ax.plot(sol.t, sol.y[0], label=f'init {idx+1}')   # plot x(t) for each
+    ax.set_xlabel('time'); ax.set_ylabel('x(t)')
+    ax.legend()
+    ax.set_title('Lorenz: x(t) for different initial conditions')
+    plt.show()
+def show_phase_space():
+    fig = plt.figure(figsize=(8,6))
+    ax = fig.add_subplot(111, projection='3d')
+    for idx, y0 in enumerate(initials):
+        sol = simulate(y0, t_eval, params)
+        ax.plot(sol.y[0], sol.y[1], sol.y[2], label=f'init {idx+1}')
+    ax.set_xlabel('x'); ax.set_ylabel('y'); ax.set_zlabel('z')
+    ax.legend()
+    ax.set_title('Lorenz: Phase space trajectories')
+    plt.show()
+show_phase_space()
